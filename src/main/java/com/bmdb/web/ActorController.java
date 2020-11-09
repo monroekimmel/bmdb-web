@@ -20,7 +20,7 @@ import com.bmdb.db.MovieRepo;
 @CrossOrigin
 @RestController
 @RequestMapping("/movies")
-public class MovieController {
+public class ActorController {
 	/*
 	 *  a controller will implement five CRUD methods:
 	 *  1. GET ALL

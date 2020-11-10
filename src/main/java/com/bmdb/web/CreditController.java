@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bmdb.business.Actor;
-import com.bmdb.business.Movie;
-import com.bmdb.db.ActorRepo;
-import com.bmdb.db.MovieRepo;
+import com.bmdb.business.Credit;
+import com.bmdb.db.CreditRepo;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/actors")
-public class ActorController {
+@RequestMapping("/movies")
+public class CreditController {
 	/*
 	 *  a controller will implement five CRUD methods:
 	 *  1. GET ALL
@@ -32,36 +30,37 @@ public class ActorController {
 	 *  5. Delete - Delete
 	 */
 	@Autowired
-	private ActorRepo actorRepo;
+	private CreditRepo creditRepo;
 	 @GetMapping("/")
-	public List<Actor> getAll() {
-		return actorRepo.findAll();
+	public List<Credit> getAll() {
+		return creditRepo.findAll();
 	}
 	 
 	 @GetMapping("/{id}")
- public Actor getById(@PathVariable int id) {
-		 return actorRepo.getOne(id);
+ public Credit getById(@PathVariable int id) {
+		 return creditRepo.getOne(id);
 	 }
-	
+	 
 	 @PostMapping("/")
-	 public Actor addActor(@RequestBody Actor a) {
-		 actorRepo.save(a);
-		 return a;
+	 public Credit addCredit(@RequestBody Credit c) {
+		 creditRepo.save(c);
+		 return c;
 	 }
 	 
 	 @PutMapping("/")
-	 public Actor updateActor(@RequestBody Actor a) {
-		 a = ActorRepo.save(a);
-		 return a;
+	 public Credit updateCredit(@RequestBody Credit c) {
+		 m = creditRepo.save(c);
+		 return c;
 	 }
 	
 	 @DeleteMapping("/{id}")
-	 public Actor deleteActor(@RequestBody Actor a) {
-		 Optional<Actor> a = actorRepo.findById(id);
-		 if (a.isPresent()) {
-			 actorRepo.deleteById(id);
+	 public Credit deleteMovie(@RequestBody Credit c) {
+		 Optional<Credit> c = creditRepo.findById(id);
+		 if (c.isPresent()) {
+			 creditRepo.deleteById(id);
 		 }
-		 return a;
+		 return c;
 	 }
 	
 }
+

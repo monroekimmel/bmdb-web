@@ -2,8 +2,8 @@ package com.bmdb.db;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.prs.business.User;
+import com.bmdb.business.User;
 
-public interface UserRepo extends JpaRepository<User, Integer>{
+public interface UserRepo extends JpaRepository<User, Integer> {
 
 }

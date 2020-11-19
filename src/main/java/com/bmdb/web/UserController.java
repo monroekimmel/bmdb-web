@@ -4,63 +4,63 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-
-import com.prs.business.User;
-import com.prs.db.UserRepo;
-
+import com.bmdb.business.User;
+import com.bmdb.db.UserRepo;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserController {
-	
 	/*
-	 * A controller will implement 5 CRUD methods: 1) GET ALL 2) GET BY ID 3) POST -
-	 * INSERT 4) PUT - UPDATE 5) DELETE - DELETE
+	 *  a controller will implement five CRUD methods:
+	 *  1. GET ALL
+	 *  2. GET BY ID
+	 *  3. POST - Insert
+	 *  4. PUT - Update
+	 *  5. Delete - Delete
 	 */
-
 	@Autowired
 	private UserRepo userRepo;
-	
-	// Get all users
-	@GetMapping("/")
+	 @GetMapping("/")
 	public List<User> getAll() {
 		return userRepo.findAll();
 	}
+	 //get a movie by id
+	 @GetMapping("/{id}")
+ public User getById(@PathVariable int id) {
+		 return userRepo.getOne(id);
+	 }
+	 //add a movie
+	 @PostMapping("/")
+	 public User addMovie(@RequestBody User u) {
+		 UserRepo.save(u);
+		 return u;
+	 }
+	 //update a movie
+	 @PutMapping("/")
+	 public User updateMovie(@RequestBody User u) {
+		 u = userRepo.save(u);
+		 return u;
+	 }
+	 //delete a movie
+	 @DeleteMapping("/{id}")
+	 public User deleteMovie(@RequestBody User u) {
+		 Optional<User> u = userRepo.findById(id);
+		 if (u.isPresent()) {
+			 userRepo.deleteById(id);
+		 }
+		 return u;
+	 }
 	
-	// Get a user by id
-		@GetMapping("/{id}")
-		public Optional<User> getById(@PathVariable int id) {
-			return userRepo.findById(id);
-		}
-		
-		// Add a user
-		@PostMapping("/")
-		public User addUser(@RequestBody User u) {
-			u = userRepo.save(u);
-			return u;
-		}
-		
-		// Update a user
-		@PutMapping("/")
-		public User updateUser(@RequestBody User u) {
-			u = userRepo.save(u);
-			return u;
-		}
-		
-		// Delete a user
-		@DeleteMapping("/{id}")
-		public User deleteUser(@PathVariable int id) {
-			// Optional type will wrap a user
-			Optional<User> u = userRepo.findById(id);
-			// isPresent() will return true if a user was found
-			if (u.isPresent()) {
-				userRepo.deleteById(id);
-			} else {
-				System.out.println("Error - user not found for id " + id);
-			}
-			return u.get();
-		}
 }
+
